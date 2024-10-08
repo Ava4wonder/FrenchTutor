@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quelle technologie a influencé le marché du travail selon Emmanuel?",
+        "options": [
+            "la médecine",
+            "l'intelligence artificielle et la robotique",
+            "les télécommunications",
+            "l'énergie renouvelable"
+        ],
+        "correctAnswer": "l'intelligence artificielle et la robotique"
+    },
+    {
+        "question": "Quelle est la conséquence des changements technologiques sur les travailleurs?",
+        "options": [
+            "une réduction du nombre d'emplois",
+            "une augmentation de la demande pour les professionnels avec compétences digitales",
+            "une diminution des compétences nécessaires",
+            "une augmentation du nombre d'emplois manuels"
+        ],
+        "correctAnswer": "une augmentation de la demande pour les professionnels avec compétences digitales"
+    },
+    {
+        "question": "Quelle solution propose Emmanuel aux entreprises pour aider leurs employés?",
+        "options": [
+            "prévoit une augmentation des salaires",
+            "promouvoir une culture d'apprentissage tout au long de la vie",
+            "diminuer les programmes de formation",
+            "augmenter les horaires de travail"
+        ],
+        "correctAnswer": "promouvoir une culture d'apprentissage tout au long de la vie"
+    },
+    {
+        "question": "Dans quel lieu a eu lieu l'entretien?",
+        "options": [
+            "un parc",
+            "un bureau",
+            "un café bruissant en plein cœur de la ville",
+            "une bibliothèque"
+        ],
+        "correctAnswer": "un café bruissant en plein cœur de la ville"
+    }
+]

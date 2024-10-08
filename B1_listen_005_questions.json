@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quelle est la période où se déroule l'événement décrit dans le script ?",
+        "options": [
+            "Pâques",
+            "Halloween",
+            "Noël",
+            "Fête du travail"
+        ],
+        "correctAnswer": "Noël"
+    },
+    {
+        "question": "Quels sont les activités proposées pour les enfants lors de la fête de Noël ?",
+        "options": [
+            "Parade des lutins et spectacles de danse",
+            "Courses d'orientation et ateliers de jardinage",
+            "Visites de musées et expositions d'art",
+            "Jeux de plein air et initiation à la natation"
+        ],
+        "correctAnswer": "Parade des lutins et spectacles de danse"
+    },
+    {
+        "question": "Quels sont les produits typiques que l'on peut trouver sur les marchés de Noël ?",
+        "options": [
+            "Jouets, verre soufflé, savons parfumés",
+            "Instruments de musique et logiciels informatiques",
+            "Vêtements de sport et accessoires de fitness",
+            "Livres et journaux"
+        ],
+        "correctAnswer": "Jouets, verre soufflé, savons parfumés"
+    },
+    {
+        "question": "Quel est le point culminant de la fête décrite dans le script ?",
+        "options": [
+            "Le feu d'artifice",
+            "La parade des lutins",
+            "Les défilés de voitures illuminées",
+            "Les spectacles de danse"
+        ],
+        "correctAnswer": "Le feu d'artifice"
+    }
+]

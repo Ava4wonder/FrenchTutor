@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quel jour l'auteur a-t-elle passé à se détendre après le travail?",
+        "options": [
+            "Lundi",
+            "Mercredi",
+            "Jeudi",
+            "Vendredi"
+        ],
+        "correctAnswer": "Jeudi"
+    },
+    {
+        "question": "Quel type d'articles a-t-elle acheté en premier?",
+        "options": [
+            "Des chaussures",
+            "Des vêtements de printemps",
+            "Des accessoires",
+            "Des cosmétiques"
+        ],
+        "correctAnswer": "Des vêtements de printemps"
+    },
+    {
+        "question": "Où s'est-elle arrêtée pour boire quelque chose?",
+        "options": [
+            "Dans un bar",
+            "Dans un restaurant",
+            "Dans un café",
+            "Chez elle"
+        ],
+        "correctAnswer": "Dans un café"
+    },
+    {
+        "question": "Comment a-t-elle terminé la journée?",
+        "options": [
+            "En regardant la télévision",
+            "En prenant un bain chaud",
+            "En allant au cinéma",
+            "En faisant de l'exercice"
+        ],
+        "correctAnswer": "En prenant un bain chaud"
+    }
+]

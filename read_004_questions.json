@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quelle est l'une des réalisations majeures de Bordeaux mentionnée dans le texte?",
+        "options": [
+            "La construction d'un nouveau stade",
+            "L'inauguration de la Cité du Vin",
+            "La réouverture du musée des Beaux-Arts",
+            "L'ouverture d'un grand centre commercial"
+        ],
+        "correctAnswer": "L'inauguration de la Cité du Vin"
+    },
+    {
+        "question": "Quelle est la caractéristique principale de Toulouse?",
+        "options": [
+            "Son climat agréable et sa plage",
+            "Son histoire militaire et aéronautique",
+            "Ses nombreux festivals culturels",
+            "Sa proximité avec les Alpes"
+        ],
+        "correctAnswer": "Son histoire militaire et aéronautique"
+    },
+    {
+        "question": "Quels sont les symboles emblématiques de Toulouse?",
+        "options": [
+            "La Cathédrale Notre-Dame de Paris et le Louvre",
+            "Le Colisée et la Fontaine de Trevi",
+            "La Cathédrale Saint-Étienne et l'Aéroport de Toulouse-Blagnac",
+            "La Tour Eiffel et le Musée du Louvre"
+        ],
+        "correctAnswer": "La Cathédrale Saint-Étienne et l'Aéroport de Toulouse-Blagnac"
+    },
+    {
+        "question": "Quel est l'attrait touristique le plus répandu de Nice?",
+        "options": [
+            "Les vignobles et les châteaux",
+            "La Promenade des Anglais et le carnaval",
+            "Les monuments historiques et la gastronomie",
+            "Les rues piétonnes et les marchés"
+        ],
+        "correctAnswer": "La Promenade des Anglais et le carnaval"
+    }
+]

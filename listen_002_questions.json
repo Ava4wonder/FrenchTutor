@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Pour combien de personnes le monsieur souhaite réserver une table?",
+        "options": [
+            "1 personne",
+            "2 personnes",
+            "3 personnes",
+            "4 personnes"
+        ],
+        "correctAnswer": "2 personnes"
+    },
+    {
+        "question": "Quel est le nom de la personne qui réserve?",
+        "options": [
+            "Jacques Martin",
+            "Jean Dupont",
+            "Pierre Leroy",
+            "Anne Dubois"
+        ],
+        "correctAnswer": "Jean Dupont"
+    },
+    {
+        "question": "À quelle heure la table est-elle réservée?",
+        "options": [
+            "18h00",
+            "19h00",
+            "20h00",
+            "21h00"
+        ],
+        "correctAnswer": "19h00"
+    },
+    {
+        "question": "Le monsieur a des préférences spéciales pour la table?",
+        "options": [
+            "Oui, il veut une table en terrasse",
+            "Non, n'importe où sera bien",
+            "Oui, il préfère une table en intérieur",
+            "Non, il ne veut pas de table près de la porte"
+        ],
+        "correctAnswer": "Non, n'importe où sera bien"
+    }
+]

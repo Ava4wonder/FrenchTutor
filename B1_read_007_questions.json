@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Qui a fondé l'entreprise Eco-Voyages?",
+        "options": [
+            "Jean Dupont",
+            "Jeanne Dupont",
+            "Anne Dupont",
+            "Pierre Dupont"
+        ],
+        "correctAnswer": "Jeanne Dupont"
+    },
+    {
+        "question": "Quel est l'objectif principal d'Eco-Voyages?",
+        "options": [
+            "Promouvoir la technologie dans les voyages",
+            "Offrir des voyages de luxe",
+            "Développer le tourisme écologique",
+            "Augmenter le nombre de touristes"
+        ],
+        "correctAnswer": "Développer le tourisme écologique"
+    },
+    {
+        "question": "Quelles sont les activités proposées par Eco-Voyages?",
+        "options": [
+            "Randonnées guidées et visites de réserves naturelles",
+            "Courses de voitures et visites de musées",
+            "Croisières en bateau et visites de casinos",
+            "Circuits de shopping et visites de centres commerciaux"
+        ],
+        "correctAnswer": "Randonnées guidées et visites de réserves naturelles"
+    },
+    {
+        "question": "Quelle est la durée générale des séjours proposés par Eco-Voyages?",
+        "options": [
+            "2 à 5 jours",
+            "5 à 15 jours",
+            "15 à 30 jours",
+            "1 à 2 semaines"
+        ],
+        "correctAnswer": "5 à 15 jours"
+    }
+]

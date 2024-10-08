@@ -1,0 +1,43 @@
+
+[
+    {
+{        "question": "Quelle est l'activité préférée de Sophie?"}
+        "options": [
+            "La lecture",
+            "Le jardinage",
+            "Le cinéma",
+            "Le théâtre"
+        ],
+{        "correctAnswer": "Le jardinage"}
+    },
+    {
+{        "question": "Quels types de films aime Antoine?"}
+        "options": [
+            "D'animation",
+            "D'action",
+            "Romantiques",
+            "Historiques"
+        ],
+{        "correctAnswer": "D'action"}
+    },
+    {
+{        "question": "Que va faire Sophie ce soir?"}
+        "options": [
+            "Dîner avec des amis",
+            "Aller au cinéma",
+            "Aller au théâtre",
+            "Se promener dans la ville"
+        ],
+{        "correctAnswer": "Aller au théâtre"}
+    },
+    {
+{        "question": "Que prévoit-il de faire Antoine ce soir?"}
+        "options": [
+            "Faire du jardinage",
+            "Assister à un concert",
+            "Se promener dans la ville",
+            "Lire un livre"
+        ],
+{        "correctAnswer": "Se promener dans la ville"}
+    }
+]

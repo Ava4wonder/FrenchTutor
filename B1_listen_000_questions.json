@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quel est le nom du programme de soutien pour les entreprises de recherche et développement annoncé par la reine Elisabeth?",
+        "options": [
+            "Énergie Verte",
+            "Vertus de l'Innovation",
+            "Économie Bleue",
+            "Développement Durable"
+        ],
+        "correctAnswer": "Vertus de l'Innovation"
+    },
+    {
+        "question": "Combien le gouvernement a-t-il alloué en budget pour ce programme?",
+        "options": [
+            "200 millions d'euros",
+            "300 millions d'euros",
+            "500 millions d'euros",
+            "100 millions d'euros"
+        ],
+        "correctAnswer": "500 millions d'euros"
+    },
+    {
+        "question": "Quels sont les secteurs visés par le programme 'Vertus de l'Innovation'?",
+        "options": [
+            "Énergie renouvelable, recyclage et réduction des émissions",
+            "Industrie automobile et textile",
+            "Services et tourisme",
+            "Agriculture biologique et pêche"
+        ],
+        "correctAnswer": "Énergie renouvelable, recyclage et réduction des émissions"
+    },
+    {
+        "question": "Qui gérera conjointement le programme 'Vertus de l'Innovation'?",
+        "options": [
+            "Ministère de l'Économie et du Ministère de l'Environnement",
+            "Ministère de l'Éducation et du Ministère de la Santé",
+            "Ministère du Travail et du Ministère des Affaires Sociales",
+            "Ministère de la Justice et du Ministère de l'Intérieur"
+        ],
+        "correctAnswer": "Ministère de l'Économie et du Ministère de l'Environnement"
+    }
+]

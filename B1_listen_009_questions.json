@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "What is the main goal of Dr. Jane Smith's 'Green Future' project?",
+        "options": [
+            "To promote sustainable fishing practices.",
+            "To develop eco-friendly technologies.",
+            "To establish a new national park.",
+            "To create a new form of renewable energy."
+        ],
+        "correctAnswer": "To develop eco-friendly technologies."
+    },
+    {
+        "question": "What is one of the technologies mentioned by Dr. Smith that her team has developed?",
+        "options": [
+            "A wind-powered electric car charger.",
+            "A solar-powered water purifier.",
+            "A device that turns plastic waste into bricks.",
+            "A machine that recycles old tires into new ones."
+        ],
+        "correctAnswer": "A solar-powered water purifier."
+    },
+    {
+        "question": "What is another project that Dr. Jane Smith's team is working on?",
+        "options": [
+            "Creating a new type of sustainable clothing.",
+            "Developing a system to convert agricultural waste into biofuels.",
+            "Building a network of electric vehicle charging stations.",
+            "Designing a new type of fuel-efficient airplane."
+        ],
+        "correctAnswer": "Developing a system to convert agricultural waste into biofuels."
+    },
+    {
+        "question": "How does Dr. Jane Smith feel about being on the 'Tech Talk Today' podcast?",
+        "options": [
+            "It was a great opportunity to share her work.",
+            "She was nervous and didn't enjoy it.",
+            "She was indifferent and didn't care much about it.",
+            "She was angry and didn't like the host."
+        ],
+        "correctAnswer": "It was a great opportunity to share her work."
+    }
+]

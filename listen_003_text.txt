@@ -1,0 +1,10 @@
+
+[Man]: Bonjour, bonsoir tout le monde. Aujourd'hui, nous allons parler de l'informatique et des nouvelles technologies, un sujet qui évolue constamment et qui fascine de nombreuses personnes. L'informatique est devenue un élément clé dans notre quotidien, et les nouvelles technologies continuent de changer notre façon de penser et d'agir.
+
+[Woman]: Oui, effectivement. Par exemple, l'intelligence artificielle est un domaine qui connaît une croissance exponentielle. Les progrès dans ce domaine nous permettent de résoudre des problèmes complexes et d'améliorer notre vie quotidienne.
+
+[Man]: Absolument. En outre, la réalité virtuelle et l'augmentation sont également en train de révolutionner l'industrie du divertissement et de l'éducation. Les possibilités sont presque illimitées.
+
+[Woman]: C'est vrai. Et ne oubliez pas les avancées dans le domaine de l'internet des objets. Les objets connectés deviennent de plus en plus intelligents et connectés, et cela a un impact sur notre vie quotidienne.
+
+[Man]: Et bien sûr, la sécurité informatique est un enjeu majeur. Avec les nouvelles technologies, il est essentiel de protéger nos données et notre vie privée.

@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quelle est la période préférée de l'année de Monsieur Dubois?",
+        "options": [
+            "Le printemps",
+            "L'été",
+            "L'automne",
+            "L'hiver"
+        ],
+        "correctAnswer": "L'hiver"
+    },
+    {
+        "question": "Où est-ce que Monsieur Dubois est allé hier soir?",
+        "options": [
+            "Au marché de Noël",
+            "Au restaurant",
+            "Chez ses parents",
+            "Au cinéma"
+        ],
+        "correctAnswer": "Au marché de Noël"
+    },
+    {
+        "question": "Quels objets a achetés Monsieur Dubois au marché?",
+        "options": [
+            "Des bonbons et une crèche",
+            "Une crèche et des jouets",
+            "Des bonbons et des jouets",
+            "Une crèche et des vêtements"
+        ],
+        "correctAnswer": "Des bonbons et une crèche"
+    },
+    {
+        "question": "Que vont faire Madame Lefevre et sa famille pour Noël?",
+        "options": [
+            "Ils vont chez ses parents",
+            "Ils vont au marché de Noël",
+            "Ils vont au restaurant",
+            "Ils restent chez eux"
+        ],
+        "correctAnswer": "Ils vont chez ses parents"
+    }
+]

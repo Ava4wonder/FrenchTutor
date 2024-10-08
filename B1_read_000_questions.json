@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quels sont les avantages de la colocation pour les étudiants mentionnés dans le texte?",
+        "options": [
+            "Réduction des coûts du logement",
+            "Augmentation de la dépense en énergie",
+            "Développement d'un mode de vie isolé",
+            "Augmentation des responsabilités individuelles"
+        ],
+        "correctAnswer": "Réduction des coûts du logement"
+    },
+    {
+        "question": "Quels sont les défis potentiels de la colocation?",
+        "options": [
+            "Gestion d'un budget individuel",
+            "Conflits avec les colocataires",
+            "Manque d'indépendance",
+            "Préoccupations pour les règles claires"
+        ],
+        "correctAnswer": "Conflits avec les colocataires"
+    },
+    {
+        "question": "Quelle est la recommandation principale du texte concernant la colocation?",
+        "options": [
+            "Choisir les colocataires aléatoirement",
+            "Partager les responsabilités sans définir de règles",
+            "S'attendre à ce que les conflits surviennent régulièrement",
+            "Choisir soigneusement ses colocataires et établir des règles claires"
+        ],
+        "correctAnswer": "Choisir soigneusement ses colocataires et établir des règles claires"
+    },
+    {
+        "question": "Quels compétences peuvent les étudiants développer en vivant en colocation?",
+        "options": [
+            "Gestion d'un budget et résolution de problèmes",
+            "Réduction des dépenses et augmentation des revenus",
+            "Évitement des conflits et maintien de la solitude",
+            "Dépendance croissante vis-à-vis des autres"
+        ],
+        "correctAnswer": "Gestion d'un budget et résolution de problèmes"
+    }
+]

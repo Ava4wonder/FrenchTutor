@@ -1,0 +1,12 @@
+
+Monsieur, est-ce que je peux vous aider avec quelque chose aujourd'hui ?
+Oui, s'il vous plaît, j'aimerais réserver une table pour deux personnes ce soir.
+Bien sûr, quel est le nom de la personne qui réserve ?
+C'est Jean Dupont.
+À quelle heure voulez-vous réserver ?
+Vers 19h00, s'il vous plaît.
+D'accord, une table pour M. Dupont à 19h00. Est-ce que vous avez des préférences spéciales pour la table ?
+Non, n'importe où sera bien, s'il vous plaît.
+Très bien, je vais vous préparer le billet de réservation. Voici le reçu : une table pour deux personnes pour M. Dupont à 19h00.
+Merci beaucoup.
+De rien, au plaisir de vous accueillir ce soir.

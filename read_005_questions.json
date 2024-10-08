@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quelle est la spécialité des restaurants 'Bon Appétit'?",
+        "options": [
+            "Des pizzas traditionnelles italiennes",
+            "Des plats traditionnels français",
+            "Des sushis japonais",
+            "Des tacos mexicains"
+        ],
+        "correctAnswer": "Des plats traditionnels français"
+    },
+    {
+        "question": "Combien de restaurants 'Bon Appétit' y a-t-il en Europe?",
+        "options": [
+            "15",
+            "20",
+            "25",
+            "30"
+        ],
+        "correctAnswer": "25"
+    },
+    {
+        "question": "Quand la réduction spéciale de 10% sur la carte des vins et des desserts est-elle applicable?",
+        "options": [
+            "Du 5 au 15 septembre",
+            "Du 15 au 30 septembre",
+            "Du 1er au 15 octobre",
+            "Du 10 au 20 décembre"
+        ],
+        "correctAnswer": "Du 15 au 30 septembre"
+    },
+    {
+        "question": "Quelle est la caractéristique principale des restaurants 'Bon Appétit' selon l'annonce?",
+        "options": [
+            "Le design moderne des restaurants",
+            "La rapidité de service",
+            "L'authenticité des plats et l'expérience culinaire unique",
+            "Le prix abordable des plats"
+        ],
+        "correctAnswer": "L'authenticité des plats et l'expérience culinaire unique"
+    }
+]

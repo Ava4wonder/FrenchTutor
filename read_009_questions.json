@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quelle est la principale préoccupation des étudiants selon l'article ?",
+        "options": [
+            "Manger davantage de fruits et légumes",
+            "Avoir une activité physique régulière",
+            "Disposer de suffisamment de sommeil",
+            "Dormir moins pour étudier plus"
+        ],
+        "correctAnswer": "Avoir une activité physique régulière"
+    },
+    {
+        "question": "Quelle est la réaction des étudiants concernant la consommation de fruits et légumes ?",
+        "options": [
+            "Ils en consomment très peu",
+            "Ils en consomment assez",
+            "Ils en consomment beaucoup",
+            "Ils ne savent pas quoi en penser"
+        ],
+        "correctAnswer": "Ils en consomment beaucoup"
+    },
+    {
+        "question": "Combien d'heures de sommeil par nuit les étudiants déclarent-ils avoir en moyenne ?",
+        "options": [
+            "Moins de 5 heures",
+            "Plus de 9 heures",
+            "Entre 7 et 9 heures",
+            "Moins de 7 heures"
+        ],
+        "correctAnswer": "Moins de 7 heures"
+    },
+    {
+        "question": "Quelle est la solution suggérée pour améliorer le sommeil des étudiants ?",
+        "options": [
+            "Pratiquer plus d'activités physiques",
+            "Manger davantage de légumes",
+            "Organiser une routine de sommeil",
+            "Étudier moins pour dormir plus"
+        ],
+        "correctAnswer": "Organiser une routine de sommeil"
+    }
+]

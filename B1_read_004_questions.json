@@ -1,0 +1,33 @@
+
+[
+    {
+        "question": "Quel est l'un des avantages de la méditation dans le contexte professionnel?",
+        "options": [
+            "Augmenter le stress au travail",
+            "Réduire l'efficacité des employés",
+            "Améliorer la concentration et réduire le stress",
+            "Diminuer la collaboration avec les collègues"
+        ],
+        "correctAnswer": "Améliorer la concentration et réduire le stress"
+    },
+    {
+        "question": "Quels types de compétences la méditation peut-elle améliorer dans le lieu de travail?",
+        "options": [
+            "La maîtrise de la langue des signes",
+            "La compétence en programmation informatique",
+            "La communication et les relations interpersonnelles",
+            "Les compétences sportives"
+        ],
+        "correctAnswer": "La communication et les relations interpersonnelles"
+    },
+    {
+        "question": "Quel est l'un des effets de la méditation sur la gestion des changements au travail?",
+        "options": [
+            "Augmenter la résistance aux changements",
+            "Réduire la capacité à s'adapter aux changements",
+            "Améliorer la résilience et la capacité à s'adapter aux changements",
+            "Empêcher les employés de gérer les défis"
+        ],
+        "correctAnswer": "Améliorer la résilience et la capacité à s'adapter aux changements"
+    }
+]

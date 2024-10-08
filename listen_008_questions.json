@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Où allait l'auteur pour étudier l'année dernière?",
+        "options": [
+            "A la bibliothèque",
+            "A la maison",
+            "Dans une cafétéria",
+            "A la piscine"
+        ],
+        "correctAnswer": "A la bibliothèque"
+    },
+    {
+        "question": "Quel type de musique a-t-il découvert?",
+        "options": [
+            "Baroque",
+            "Classique",
+            "Jazz",
+            "Rock"
+        ],
+        "correctAnswer": "Baroque"
+    },
+    {
+        "question": "Quels étaient les horaires de l'école?",
+        "options": [
+            "7h du matin",
+            "8h du matin",
+            "9h du matin",
+            "10h du matin"
+        ],
+        "correctAnswer": "8h du matin"
+    },
+    {
+        "question": "Quel était le rôle du directeur du lycée?",
+        "options": [
+            "Enseigner",
+            "Tenir les règles",
+            "Cuisiner",
+            "Nettoyez"
+        ],
+        "correctAnswer": "Tenir les règles"
+    }
+]

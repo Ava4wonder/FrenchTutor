@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quel est le principal ingrédient du pot-au-feu traditionnel français?",
+        "options": [
+            "Du poulet",
+            "Du boeuf",
+            "Du poisson",
+            "Du porc"
+        ],
+        "correctAnswer": "Du boeuf"
+    },
+    {
+        "question": "Quel type de cuisson est utilisé pour préparer le pot-au-feu?",
+        "options": [
+            "Cuisson rapide",
+            "Mijotage",
+            "Friture",
+            "Grillade"
+        ],
+        "correctAnswer": "Mijotage"
+    },
+    {
+        "question": "Quelles sauces accompagnent généralement le pot-au-feu?",
+        "options": [
+            "Sauce au chocolat",
+            "Sauce au vin rouge",
+            "Sauce au curry",
+            "Sauce au fromage"
+        ],
+        "correctAnswer": "Sauce au vin rouge"
+    },
+    {
+        "question": "Dans quel contexte le pot-au-feu est-il souvent servi?",
+        "options": [
+            "Au quotidien",
+            "Au petit déjeuner",
+            "Dans les restaurants",
+            "Pour les repas familiaux et festifs"
+        ],
+        "correctAnswer": "Pour les repas familiaux et festifs"
+    }
+]

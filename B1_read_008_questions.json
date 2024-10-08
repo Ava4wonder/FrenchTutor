@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quels sont les éléments clés pour réussir dans le monde du travail aujourd'hui?",
+        "options": [
+            "Les diplômes universitaires",
+            "La formation tout au long de la vie professionnelle",
+            "La spécialisation dans un seul domaine",
+            "La mobilité géographique"
+        ],
+        "correctAnswer": "La formation tout au long de la vie professionnelle"
+    },
+    {
+        "question": "Quel est l'impact des avancées technologiques sur les métiers?",
+        "options": [
+            "Elle crée plus d'emplois",
+            "Elle rend certains métiers obsolètes",
+            "Elle ne change pas grand-chose",
+            "Elle réduit la nécessité de formation"
+        ],
+        "correctAnswer": "Elle rend certains métiers obsolètes"
+    },
+    {
+        "question": "Quelle est la fonction de la formation dans la mobilité professionnelle?",
+        "options": [
+            "Elle permet de prendre du poids physique",
+            "Elle permet de changer de métier ou de progresser",
+            "Elle est inutile pour la plupart des travailleurs",
+            "Elle permet d'obtenir une augmentation de salaire"
+        ],
+        "correctAnswer": "Elle permet de changer de métier ou de progresser"
+    },
+    {
+        "question": "Quels sont les avantages de la protection sociale pour les travailleurs?",
+        "options": [
+            "Protection contre les accidents du travail",
+            "Droits aux congés payés et aux allocations de maladie",
+            "Possibilité de négocier son salaire avec les employeurs",
+            "Accès aux formations professionnelles gratuites"
+        ],
+        "correctAnswer": "Droits aux congés payés et aux allocations de maladie"
+    }
+]

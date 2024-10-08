@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Où se trouvent les personnages?",
+        "options": [
+            "Dans un parc",
+            "Dans une gare",
+            "Sur une rue",
+            "Dans un musée"
+        ],
+        "correctAnswer": "Sur une rue"
+    },
+    {
+        "question": "Quel est le nom de la rue où ils se trouvent?",
+        "options": [
+            "Rue de la Paix",
+            "Rue Bonaparte",
+            "Rue Saint-Germain",
+            "Rue des Invalides"
+        ],
+        "correctAnswer": "Rue Bonaparte"
+    },
+    {
+        "question": "Quel monument historique est mentionné dans la conversation?",
+        "options": [
+            "La Tour Eiffel",
+            "Le Louvre",
+            "L'Hôtel des Invalides",
+            "La Cathédrale Notre-Dame"
+        ],
+        "correctAnswer": "L'Hôtel des Invalides"
+    },
+    {
+        "question": "Quelle est la station de métro la plus proche?",
+        "options": [
+            "La station Saint-Germain-des-Prés",
+            "La station Concorde",
+            "La station Champs-Élysées",
+            "La station Étoile"
+        ],
+        "correctAnswer": "La station Saint-Germain-des-Prés"
+    }
+]

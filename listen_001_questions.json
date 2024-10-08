@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Quel est l'objet principal de l'étude menée par le Dr. Smith?",
+        "options": [
+            "La pollution dans les eaux côtières",
+            "Les espèces marines menacées et leurs habitats",
+            "Les différentes formes de la bioluminescence chez les poissons",
+            "Le développement de nouvelles méthodes de pêche durable"
+        ],
+        "correctAnswer": "Les espèces marines menacées et leurs habitats"
+    },
+    {
+        "question": "Quelle a été la découverte la plus surprenante du Dr. Smith?",
+        "options": [
+            "Une nouvelle technique de recherche marine",
+            "Un vieux bateau englouti rempli de trésors",
+            "Une espèce de poisson émettant une lumière bleue inattendue",
+            "Une nouvelle plante marine qui pourrait traiter certaines maladies"
+        ],
+        "correctAnswer": "Une espèce de poisson émettant une lumière bleue inattendue"
+    },
+    {
+        "question": "Comment la bioluminescence peut-elle aider la conservation des espèces marines?",
+        "options": [
+            "En fournissant de l'énergie pour les systèmes de sécurité côtière",
+            "En permettant d'étudier les interactions entre les espèces de poissons sans les perturber",
+            "En créant de nouvelles attractions touristiques pour les plongeurs",
+            "En fournissant des matériaux luminescents pour l'industrie textile"
+        ],
+        "correctAnswer": "En permettant d'étudier les interactions entre les espèces de poissons sans les perturber"
+    },
+    {
+        "question": "Quels sont les prochaines étapes suggérées par le Dr. Smith pour la recherche?",
+        "options": [
+            "Étendre la bioluminescence à d'autres domaines scientifiques",
+            "Développer de nouveaux dispositifs de pêche écologique",
+            "Étudier davantage la bioluminescence chez d'autres espèces marines et travailler avec des organisations de conservation",
+            "Construire un aquarium pour les espèces marines menacées"
+        ],
+        "correctAnswer": "Étudier davantage la bioluminescence chez d'autres espèces marines et travailler avec des organisations de conservation"
+    }
+]

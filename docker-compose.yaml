@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  main:
+    build: .
+    env_file: .env
+    ports:
+      - "5000:5000"
+    depends_on:
+      - service2
+      - service3
+    networks:
+      - app-network 
+
+  service2:
+    image: fr_speechtotext
+    ports:
+      - "5002:5002"
+    networks:
+      - app-network
+  
+  service3:
+    image: libretranslate/libretranslate
+    ports:
+      - "5003:5003"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

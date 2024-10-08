@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Où se déroule le mariage de Thomas et Juliette?",
+        "options": [
+            "Dans une galerie d'art",
+            "Dans une ancienne abbaye",
+            "Dans un parc-botanique",
+            "Dans une maison de campagne"
+        ],
+        "correctAnswer": "Dans une ancienne abbaye"
+    },
+    {
+        "question": "Quel est le thème du mariage de Clément et Léa?",
+        "options": [
+            "Nature et art",
+            "Romantisme et nature",
+            "Technologie et design",
+            "Musique classique et arts visuels"
+        ],
+        "correctAnswer": "Musique classique et arts visuels"
+    },
+    {
+        "question": "Quels sont les éléments décoratifs choisis par Alice et Kevin pour leur mariage?",
+        "options": [
+            "Des arbres en pots avec des guirlandes lumineuses",
+            "Des œuvres d'art uniques créées par des amis artistes",
+            "Des allées ombragées et des jardins fleuris",
+            "Des violons et des chants d'oiseaux enregistrés"
+        ],
+        "correctAnswer": "Des allées ombragées et des jardins fleuris"
+    },
+    {
+        "question": "Quelles sont les activités interactives prévues lors du mariage d'Alice et Kevin?",
+        "options": [
+            "Visite guidée du parc-botanique",
+            "Ateliers de peinture et exposition d'œuvres",
+            "Ateliers de cuisine et jeux pour les enfants",
+            "Concert de violon et danses traditionnelles"
+        ],
+        "correctAnswer": "Ateliers de cuisine et jeux pour les enfants"
+    }
+]

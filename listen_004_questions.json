@@ -1,0 +1,43 @@
+
+[
+    {
+        "question": "Qu'est-ce que Personne A et Personne B disent après s'être salués?",
+        "options": [
+            "Ils parlent du temps.",
+            "Ils parlent de leurs activités préférées.",
+            "Ils se demandent comment ça va.",
+            "Ils parlent de leurs enfants."
+        ],
+        "correctAnswer": "Ils se demandent comment ça va."
+    },
+    {
+        "question": "Quel est l'opinion de Personne D sur le film?",
+        "options": [
+            "Il le trouve mauvais.",
+            "Il n'a pas encore vu le film.",
+            "Il a déjà vu le film et il l'adore.",
+            "Il ne veut pas le voir."
+        ],
+        "correctAnswer": "Il n'a pas encore vu le film."
+    },
+    {
+        "question": "Pourquoi Personne E achète-t-elle des billets pour le concert?",
+        "options": [
+            "Parce que c'est le groupe de musique préféré de Personne F.",
+            "Parce que c'est son anniversaire.",
+            "Parce qu'elle veut les offrir à Personne F.",
+            "Parce qu'elle adore Coldplay."
+        ],
+        "correctAnswer": "Parce qu'elle adore Coldplay."
+    },
+    {
+        "question": "Quel est le rêve commun de Personne G et Personne H?",
+        "options": [
+            "Visiter Paris.",
+            "Visiter la Grande Muraille de Chine.",
+            "Avoir un restaurant.",
+            "Écrire un livre."
+        ],
+        "correctAnswer": "Visiter la Grande Muraille de Chine."
+    }
+]
