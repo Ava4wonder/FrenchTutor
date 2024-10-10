@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reading Exercise</title>
+    <style>
+        :root {
+            --fuschia: #daeded;
+            --button-bg: var(--fuschia);
+            --button-text-color: #adeee4;
+            --baby-blue: #f8faff;
+        }
+
+        html, body {
+            height: 100%;
+        }
+        /* body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        } */
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: rgb(165, 218, 218);
+        }
+        .container {
+            background-color: rgb(16, 17, 17);
+            padding: 20px;
+            border: 1px solid #040708;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 480px;
+            text-align: center;
+        }
+        #output-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 400px;
+            height: 200px;
+            color: white;
+            font-family: 'Raleway';
+            font-size: 2.5rem;
+        }
+
+        .question {
+        margin-bottom: 20px;
+        }
+        .option {
+            margin-right: 10px;
+        }
+        /* 为问题添加一些间距 */
+        h3 {
+            margin: 10px 0;
+        }
+
+        /* 为了显示选择结果的正确与否 增加一些自定义样式 */
+        .feedback {
+            margin-top: 20px;
+        }
+        .correct {
+            background-color: #4CAF50; /* 绿色 */
+        }
+        .incorrect {
+            background-color: #f44336; /* 红色 */
+        }
+        .hidden {
+            display: none;
+        }
+
+        /* 基本按钮样式 */
+        .audioButton {
+            padding: 15px 20px; /* 按钮内边距 */
+            font-size: 16px; /* 字体大小 */
+            font-weight: bold; /* 字体加粗 */
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 2px; /* 左侧外边距为20像素 */
+            margin-right: 2px; /* 右侧外边距为20像素 */
+            color: #ffffff; /* 文字颜色 */
+            background-color: rgb(251, 193, 225); /* 按钮背景颜色 */
+            border: none; /* 无边框 */
+            border-radius: 5px; /* 边框圆角 */
+            cursor: pointer; /* 鼠标悬停时显示手型图标 */
+            transition: background-color 0.3s; /* 背景颜色变化的过渡效果 */
+        }
+
+        /* 基本按钮样式 */
+        .submitButton {
+            padding: 15px 20px; /* 按钮内边距 */
+            font-size: 16px; /* 字体大小 */
+            font-weight: bold; /* 字体加粗 */
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 2px; /* 左侧外边距为20像素 */
+            margin-right: 2px; /* 右侧外边距为20像素 */
+            color: #ffffff; /* 文字颜色 */
+            background-color: rgb(190, 229, 147); /* 按钮背景颜色 */
+            border: none; /* 无边框 */
+            border-radius: 5px; /* 边框圆角 */
+            cursor: pointer; /* 鼠标悬停时显示手型图标 */
+            transition: background-color 0.3s; /* 背景颜色变化的过渡效果 */
+        }
+
+        /* 基本按钮样式 */
+        .showtextButton {
+            padding: 15px 20px; /* 按钮内边距 */
+            font-size: 16px; /* 字体大小 */
+            font-weight: bold; /* 字体加粗 */
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 2px; /* 左侧外边距为20像素 */
+            margin-right: 2px; /* 右侧外边距为20像素 */
+            color: #ffffff; /* 文字颜色 */
+            background-color: rgb(112, 172, 48); /* 按钮背景颜色 */
+            border: none; /* 无边框 */
+            border-radius: 5px; /* 边框圆角 */
+            cursor: pointer; /* 鼠标悬停时显示手型图标 */
+            transition: background-color 0.3s; /* 背景颜色变化的过渡效果 */
+        }
+        
+        /* 鼠标悬停时的按钮样式
+        #playButton:hover {
+        background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+        /* } */
+
+        /* 按钮点击时的样式 */
+        /* #playButton:active {
+        background-color: #004085; /* 点击时的背景颜色 */
+        /* } */ 
+
+        .response-area {
+            background-color: #d7f6f7;
+            padding: 40px;
+            font-size: 14px;  /* Smaller font size */
+            border-radius: 10px;
+            font-weight: normal;
+            color: black;
+            min-height: 200px;
+            text-align: left;
+        }
+
+        .non-display-response-area {
+            background-color: #d2f7f3;
+            padding: 40px;
+            font-size: 14px;  /* Smaller font size */
+            border-radius: 10px;
+            font-weight: normal;
+            color: black;
+            min-height: 200px;
+            text-align: left;
+            display: none;
+        }
+
+        
+        .generate-button{
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold; /* 字体加粗 */
+            padding: 15px 40px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 7px; /* 左侧外边距为20像素 */
+            margin-right: 7px; /* 右侧外边距为20像素 */
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: var(--button-bg);
+            color: $button-text-color;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+            box-shadow: 0 2px 25px rgba(255, 60, 160, 0.8);
+            
+            &:focus {
+                outline: 0;
+            }
+            
+            &:before, &:after{
+                position: absolute;
+                content: '';
+                display: block;
+                width: 180%;
+                height: 120%;
+                left: -40%;
+                z-index: -1000;
+                transition: all ease-in-out 0.5s;
+                background-repeat: no-repeat;
+            }
+            
+            &:before{
+                display: none;
+                top: -75%;
+                background-image:  
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle,  transparent 40%, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%), 
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%);
+            background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
+            //background-position: 0% 80%, -5% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 85% 30%;
+            }
+            
+            &:after{
+                display: none;
+                bottom: -75%;
+                background-image:  
+                radial-gradient(circle, $button-bg 40%, transparent 40%), 
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%);
+            background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+            //background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+            }
+            
+            &:active{
+                transform: scale(0.9);
+                background-color: darken($button-bg, 5%);
+                box-shadow: 0 2px 25px rgba(255, 0, 130, 0.2);
+            }
+            
+            &.animate{
+                &:before{
+                display: block;
+                animation: topBubbles ease-in-out 0.75s forwards;
+                }
+                &:after{
+                display: block;
+                animation: bottomBubbles ease-in-out 0.75s forwards;
+                }
+            }
+        }
+
+
+        @keyframes topBubbles {
+        0%{
+            background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+        }
+            50% {
+            background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;}
+        100% {
+            background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+        background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+        }
+        }
+
+        @keyframes bottomBubbles {
+        0%{
+            background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+        }
+        50% {
+            background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;}
+        100% {
+            background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+        background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+        }
+        }
+
+     
+        
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <!-- 新增的Exercise按钮 -->
+        <button class="generate-button" id="exerciseButton" onclick="displayQuestions()">Listen Exer.</button>
+        <button class="audioButton", id="playButton">Play</button>
+        <!-- 提交答案的按钮 -->
+        <button class="submitButton" id="submitButton">Submit</button>
+        <button class="showtextButton" id="showtextButton" onclick="showtext">Text</button>
+
+        <div class="non-display-response-area" id="audioscript"></div> <!-- 这里没有初始内容 -->
+        <!-- response-area用于显示问题和选项 -->
+        <div id="responseArea" class="response-area">
+            <div class="feedback" id="introText"></div>
+            <!-- 问题将在这里显示 -->
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+        </div>
+        
+        
+    </div>
+    
+    <script>
+        var questions;
+        var text_content;
+        var audioPath;
+
+        let audio;
+        let isPlaying = false;
+
+        var div = document.getElementById('audioscript');
+        var level = localStorage.getItem('FrenchTutor_level');
+
+
+        console.log('div: ', div);
+
+        var introTextElement = document.getElementById('introText');
+
+        console.log(document.getElementById('introText'))
+    
+        // 显示所有问题和选项
+        function displayQuestions() {
+            document.getElementById('responseArea').innerText = "";
+            document.getElementById('audioscript').innerText = "";
+            document.getElementById('audioscript').style.display = 'none';
+
+            
+            const url = `/generatelisten?level=${encodeURIComponent(level)}`;
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // var introTextElement = document.getElementById('introText');
+                // introTextElement.innerText = data.text_content; // 假设 
+                // console.log(data);
+                // var qaElement = document.getElementById('question');
+                questions = data.qa_content;
+                text_content = data.text_content;
+                audioPath = data.audio_path;
+                // console.log(questions);
+                
+                questions.forEach(function(question, index) {
+                    // console.log(question);
+                    var questionDiv = document.createElement('div');
+                    questionDiv.className = 'question';
+        
+                    var questionText = document.createElement('h3');
+                    questionText.innerText = question.question;
+                    console.log(question.question)
+        
+                    var optionsDiv = document.createElement('div');
+                    optionsDiv.className = 'options';
+
+                    var feedbackDiv = document.createElement('div');
+                    feedbackDiv.id = 'feedback-' + index; // 赋予一个基于索引的唯一 id
+                    feedbackDiv.className = 'feedback hidden'; // 初始时隐藏反馈元素
+        
+                    question.options.forEach(function(option, optIndex) {
+                        var label = document.createElement('label');
+                        label.className = 'option';
+                        label.htmlFor = 'q' + index + '_' + optIndex;
+                        label.innerHTML = `<input type="radio" name="q${index}" id="q${index}_${optIndex}" value="${option}"> ${option}`;
+        
+                        optionsDiv.appendChild(label);
+                    });
+        
+                    questionDiv.appendChild(questionText);
+                    questionDiv.appendChild(optionsDiv);
+                    responseArea.appendChild(questionDiv);
+                    optionsDiv.appendChild(feedbackDiv); // 将反馈元素添加到选项容器中
+                });
+            })
+            .catch(error => console.error('Error:', error));
+
+            var responseArea = document.getElementById('responseArea');
+
+        // function displayQuestions() {
+        //     var responseArea = document.getElementById('responseArea');
+        //     responseArea.innerHTML = ''; // 清空现有内容
+    
+            
+        }
+
+
+        // 检查答案并显示反馈
+        function checkAnswer() {
+            // 遍历问题并检查答案
+            questions.forEach(function(question, index) {
+                var radios = document.getElementsByName('q' + index);
+                var feedbackDiv = document.getElementById('feedback-' + index); // 获取反馈元素
+                var correct = false;
+
+                for (var j = 0; j < radios.length; j++) {
+                    if (radios[j].checked) {
+                        var isCorrect = radios[j].value === question.correctAnswer;
+                        if (isCorrect) {
+                            feedbackDiv.innerText = 'Correct!';
+                            feedbackDiv.className = 'feedback correct'; // 显示绿色
+                        } else {
+                            feedbackDiv.className = 'feedback incorrect'; // 显示红色
+                            feedbackDiv.innerText = 'Incorrect! The correct answer is ' + question.correctAnswer; 
+                        }
+                        correct = isCorrect;
+                        break; // 找到选中的单选按钮后跳出循环
+                    }
+                }
+
+                if (!correct) {
+                    // 如果没有选择, 在这里添加额外的逻辑
+                    feedbackDiv.className = 'feedback incorrect'; // 显示红色
+                    feedbackDiv.innerText = 'Incorrect! The correct answer is ' + question.correctAnswer; 
+                }
+            });
+        }
+        
+        // 播放音频
+        function playAudio() {
+            console.log(audioPath);
+            if (audioPath) {
+                readAudioFile(audioPath); // 调用函数播放音频
+            }
+        }
+
+        function readAudioFile(filePath) {
+            if (!audio) {
+                // 使用fetch API从服务器请求音频文件
+                fetch(`/read_audio_file/${encodeURIComponent(filePath)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        // 如果响应状态码不是200-299，抛出错误
+                        throw new Error('Network response was not ok.');
+                    }
+                    return response.blob(); // 获取音频文件的Blob
+                })
+                .then(blob => {
+                    const audioURL = URL.createObjectURL(blob);
+                    audio = new Audio(audioURL);
+
+                    audio.play().then(() => {
+                        isPlaying = true; // Set the state to playing
+                        document.getElementById('playButton').innerText = 'Pause'; // Change button text to 'Pause'
+                    }).catch(e => {
+                        console.error('There was a problem playing the audio file:', e);
+                    });
+
+                    audio.onended = () => {
+                        isPlaying = false; // Reset the state when the audio ends
+                        URL.revokeObjectURL(audioURL);
+                        document.getElementById('playButton').innerText = 'Play'; // Reset button text to 'Play'
+                        audio = null; // Reset the audio object
+                    };
+                })
+                .catch(error => {
+                        console.error('Error reading the audio file:', error);
+                    });
+            } else if (isPlaying) {
+                // If the audio is playing, pause it
+                audio.pause();
+                isPlaying = false; // Set the state to paused
+                document.getElementById('playButton').innerText = 'Play'; // Change button text to 'Play'
+            } else {
+                // If the audio is paused, resume playing
+                audio.play();
+                isPlaying = true; // Set the state to playing
+                document.getElementById('playButton').innerText = 'Pause'; // Change button text to 'Pause'
+            }
+        }
+
+
+        function showtext() {
+            console.log(text_content);
+            console.log(introTextElement);
+            // var textContent = text_content;
+
+            console.log('test:', div.style.display === 'none' || div.style.display === '');
+            if (div.style.display === 'none' || div.style.display === '') {
+                div.textContent = text_content; // 设置 div 的文本内容
+                div.style.display = 'block'; // 显示 div
+                console.log(div.style.display);
+            } else {
+                div.style.display = 'none'; // 隐藏 div
+            }
+            // var introTextElement = document.getElementById('introText');
+            // introTextElement.innerText = text_content; // 假设 
+            
+        }
+        // 绑定按钮事件
+        // 确保页面加载完成后再绑定事件
+        // window.onload = function() {
+        //     // 绑定按钮事件
+        document.getElementById('submitButton').addEventListener('click', checkAnswer);
+        document.getElementById('playButton').addEventListener('click', playAudio);
+        document.getElementById('showtextButton').addEventListener('click', showtext);
+        // };
+    
+        // 初始显示问题
+        // displayQuestions();
+    </script>
+    
+    
+    </body>
+</html>

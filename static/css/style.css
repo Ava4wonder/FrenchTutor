@@ -1,0 +1,29 @@
+/* 定义按钮的样式 */
+.button {
+    background-color: #f8fcfd; /* 浅青色背景 */
+    color: #333; /* 文字颜色 */
+    padding: 10px 20px; /* 内边距 */
+    border: none; /* 无边框 */
+    border-radius: 5px; /* 圆角边框 */
+    cursor: pointer; /* 鼠标悬停时显示手形图标 */
+    font-size: 16px; /* 字体大小 */
+    margin: 10px; /* 外边距，根据需要调整 */
+    display: inline-block; /* 内联块显示 */
+    text-align: center; /* 文字居中 */
+    text-decoration: none; /* 去除下划线 */
+    transition: background-color 0.3s; /* 背景颜色变化过渡效果 */
+}
+
+.button:hover {
+    background-color: #b2ebf2; /* 鼠标悬停时的背景颜色 */
+}
+
+#output-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: auto; /* 如果内容过长，可以滚动查看 */
+    max-height: 300px; /* 定义最大高度 */
+  }
+
+/* playButton.css */
+

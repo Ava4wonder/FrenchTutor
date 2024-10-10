@@ -1,0 +1,906 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Test</title>
+    <script src="https://cdn.WebRTC-Experiment.com/MediaStreamRecorder.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/wavefile@11.0.0/dist/wavefile.min.js"></script> -->
+    <style>
+        :root {
+            --fuschia: #daeded;
+            --button-bg: var(--fuschia);
+            --button-text-color: #adeee4;
+            --baby-blue: #f8faff;
+            --baby-pink: rgb(255, 149, 207);
+        }
+
+        html, body {
+            height: 100%;
+        }
+        /* body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        } */
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: rgb(165, 218, 218);
+        }
+        .container {
+            background-color: rgb(16, 17, 17);
+            padding: 20px;
+            border: 1px solid #040708;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 480px;
+            text-align: center;
+        }
+        #output-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 400px;
+            height: 200px;
+            color: white;
+            font-family: 'Raleway';
+            font-size: 2.5rem;
+        }
+
+        /* 弹出选项框样式 */
+        #selectionOptions {
+            display: none;
+            position: absolute;
+            /* padding: 4px; */
+            background: #63e2db;
+            /* border: 1px solid #191818; */
+            /* margin-top: -2px; /* 弹出框距离选中文字的垂直距离 */
+            /* margin-left: -2px; /* 弹出框距离选中文字的水平距离，根据需要调整 */
+            z-index: 100;
+        }
+
+        /* 基本按钮样式 */
+        .audioButton {
+            padding: 15px 20px; /* 按钮内边距 */
+            font-size: 16px; /* 字体大小 */
+            font-weight: bold; /* 字体加粗 */
+            color: #ffffff; /* 文字颜色 */
+            background-color: var(--baby-pink); /* 按钮背景颜色 */
+            border: none; /* 无边框 */
+            border-radius: 5px; /* 边框圆角 */
+            cursor: pointer; /* 鼠标悬停时显示手型图标 */
+            transition: background-color 0.3s; /* 背景颜色变化的过渡效果 */
+        }
+        
+        /* ***************** */
+        /* <录音按钮style定义> */
+        /* ***************** */
+        
+        .player-icon {
+            color: #007bff;
+            margin-right: 5px;
+        }
+        .player-icon:hover {
+            color: #000;
+        }
+        .audiocontainer {
+            background: #fff;
+            height: 70px;
+            width: 70px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
+        }
+        .header-player {
+            width: 100%;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: 60px auto;
+        }
+        .header-player .audio-record {
+            display: flex;
+            align-items: center;
+        }
+        .header-player .audio-record i {
+            color: #007bff;
+            font-size: 50px;
+            cursor: pointer;
+            padding: 1px;
+        }
+        .header-player .audio-record input[type=checkbox] {
+            position: absolute;
+            visibility: hidden;
+        }
+        .header-player .audio-record input[type=checkbox]:checked ~ label i {
+            color: #fff;
+            background: #007bff;
+            border-radius: 100%;
+            animation: shadow-expansion 0.9s ease-in-out infinite alternate;
+        }
+        .header-player .audio-properties .audio_record-control {
+            width: 100%;
+            display: flex;
+            flex-flow: row nowrap;
+        }
+        .header-player .audio-properties .audio_record-control .audio-overwrite {
+            flex-grow: 2;
+            font-size: 11px;
+            font-weight: regular;
+            padding-top: 6px;
+            text-align: right;
+        }
+        .header-player .audio-properties .audio_record-control .audio-overwrite > label {
+            padding-right: 10px;
+        }
+        .header-player .switch {
+            position: relative;
+            display: inline-block;
+            width: 36px;
+            height: 14px;
+            float: right;
+        }
+        .header-player .switch label {
+            font-size: 12px;
+            font-weight: regular;
+            float: left;
+        }
+        .header-player .switch input {
+            display: none;
+        }
+        .header-player .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 123, 255, 0.26);
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+            border-radius: 20px;
+        }
+        .header-player .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: -2px;
+            bottom: -2.5px;
+            background-color: #f1f1f1;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+            border-radius: 100%;
+            box-shadow: 0px 2px 2px rgba(0, 123, 255, 0.24);
+        }
+        .header-player input:checked + .slider {
+            background-color: #99caff;
+        }
+        .header-player input:checked + .slider::before {
+            background-color: #007bff;
+        }
+        .header-player input:focus + .slider {
+            box-shadow: 0 0 1px #007bff;
+        }
+        .header-player input:checked + .slider:before {
+            -webkit-transform: translateX(20px);
+            -ms-transform: translateX(20px);
+            transform: translateX(20px);
+        }
+        .header-player .player-bar {
+            font-size: 14px;
+            font-weight: bold;
+            width: 100%;
+            display: flex;
+            flex-flow: row nowrap;
+            margin: 10px 0;
+        }
+        @keyframes shadow-expansion {
+            from {
+                box-shadow: 0 0 0 5px #007bff;
+            }
+            to {
+                box-shadow: 0 0 0 0 #007bff;
+            }
+        }
+        .by {
+            font-family: sans-serif;
+            position: fixed;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+            font-size: 10px;
+        }
+        .by a {
+            text-decoration: none;
+            color: #007bff;
+            transition: all 0.5s;
+        }
+        .by a:hover {
+            color: #0062cc;
+        }
+        button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        #clicks {
+            border-radius: 50%;
+            background-color: red;
+            width: 20px;
+            height: 15px;
+            position: absolute;
+            display: none;
+        }
+        .save {
+            position: relative;
+            left: 0px;
+            top: -20px;
+            z-index: 100;
+        }
+
+
+
+
+        /* ****************** */
+        /* </录音按钮style定义> */
+        /* ****************** */
+
+        
+
+        /* 鼠标悬停时的按钮样式
+        #playButton:hover {
+        background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+        /* } */
+
+        /* 按钮点击时的样式 */
+        /* #playButton:active {
+        background-color: #004085; /* 点击时的背景颜色 */
+        /* } */ 
+
+        .response-area {
+            background-color: #d7f6f7;
+            padding: 40px;
+            font-size: 14px;  /* Smaller font size */
+            border-radius: 10px;
+            font-weight: normal;
+            color: black;
+            min-height: 200px;
+            text-align: left;
+        }
+
+        
+        .generate-button{
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold; /* 字体加粗 */
+            padding: 15px 40px;
+            margin-top: 100px;
+            margin-bottom: 60px;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: var(--button-bg);
+            color: $button-text-color;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+            box-shadow: 0 2px 25px rgba(255, 60, 160, 0.8);
+            
+            &:focus {
+                outline: 0;
+            }
+            
+            &:before, &:after{
+                position: absolute;
+                content: '';
+                display: block;
+                width: 180%;
+                height: 120%;
+                left: -40%;
+                z-index: -1000;
+                transition: all ease-in-out 0.5s;
+                background-repeat: no-repeat;
+            }
+            
+            &:before{
+                display: none;
+                top: -75%;
+                background-image:  
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle,  transparent 40%, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%), 
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%);
+            background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
+            //background-position: 0% 80%, -5% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 85% 30%;
+            }
+            
+            &:after{
+                display: none;
+                bottom: -75%;
+                background-image:  
+                radial-gradient(circle, $button-bg 40%, transparent 40%), 
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%);
+            background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+            //background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+            }
+            
+            &:active{
+                transform: scale(0.9);
+                background-color: darken($button-bg, 5%);
+                box-shadow: 0 2px 25px rgba(255, 0, 130, 0.2);
+            }
+            
+            &.animate{
+                &:before{
+                display: block;
+                animation: topBubbles ease-in-out 0.75s forwards;
+                }
+                &:after{
+                display: block;
+                animation: bottomBubbles ease-in-out 0.75s forwards;
+                }
+            }
+        }
+
+
+        @keyframes topBubbles {
+        0%{
+            background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+        }
+            50% {
+            background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;}
+        100% {
+            background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+        background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+        }
+        }
+
+        @keyframes bottomBubbles {
+        0%{
+            background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+        }
+        50% {
+            background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;}
+        100% {
+            background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+        background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+        }
+        }
+     
+        
+        
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="audiocontainer">
+        <div class="player">
+            <div class="header-player">
+            <div class="audio-record">
+                <input type="checkbox" id="audio_record-icon" name="audio_record-icon">
+                <label for="audio_record-icon" class="player-icon audio_record-icon">
+                <i class="material-icons" title="microfono">mic</i>
+                </label>
+            </div>
+            <div class="audio-properties">              
+                <div class="audio_record-control">         
+                <button class="btn btn-default player-icon save" id="save-recording" onclick="saveRecording();">
+                    <i class="material-icons">save</i>
+                </button>
+                </div>
+            </div>
+            
+            </div>
+            
+        </div>
+    </div>
+    <div id="record-audio"></div>
+    <span id="clicks"></span>
+      
+    <button class="generate-button" onclick="generateResponse()">New</button>
+    <button class="audioButton", id="recordButton">Record</button>
+    <div id="responseArea" class="response-area"></div>
+    <div id="responseArea-comment" class="response-area" style="display: none">
+        <!-- Response will be displayed here -->
+        <!-- <button class="audioButton", id="playButton" style="display: none;">Play Audio</button> -->
+    
+    </div>
+</div>
+
+<!-- 弹出选项框 -->
+<div id="selectionOptions">
+    <button id="readSelection">read</button>
+</div>
+
+<!-- <audio id="audioPlayer" controls style="display: none;"></audio> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/wavefile@11.0.0/dist/wavefile.min.js"></script> -->
+<!-- <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script> -->
+
+<!-- <a id="downloadLink" style="display: none;">Download WAV</a>
+<audio id="audioPlayback" controls></audio> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var audioPath;
+    let audio;
+    let isPlaying = false;
+    var level = localStorage.getItem('FrenchTutor_level');
+    
+    function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
+        navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
+    }
+
+    var mediaConstraints = {
+        audio: true
+    };
+    document.querySelector('#save-recording').onclick = function () {
+        this.disabled = true;
+        mediaRecorder.save();
+        // alert('Drop WebM file on Chrome or Firefox. Both can play entire file. VLC player or other players may not work.');
+    };
+    //Parto con la registrazione audio
+    function startRecording(idx) {
+        console.log('start recording ...')
+        
+        $('#start-recording').disabled = true;
+        audiosContainer = document.getElementById('audios-container');
+        //document.getElementById("clicks").innerHTML = "Recording Started";
+
+        var f = document.getElementById('clicks');
+        setInterval(function () {
+            f.style.display = (f.style.display == 'none' ? '' : 'none');
+        }, 1000);
+
+        captureUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+    };
+    //Stoppo la registrazione audio
+    function stopRecording() {
+        console.log('stop recording ...')
+        $('#stop-recording').disabled = true;
+    
+        //document.getElementById("clicks").innerHTML = "Recording Stopped";
+
+        var f = document.getElementById('clicks');
+        setInterval(function () {
+            f.style.display = (f.style.display == 'none' ? '' : 'none');
+        }, 1000);
+        mediaRecorder.stop();
+
+        // Stop the media stream tracks
+        // mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        // $('.start-recording').disabled = false;
+        mediaRecorder.stream.stop();
+        console.log('stopped')
+    
+    
+        $('.start-recording').disabled = false;
+    };
+
+    //Falvo Il file
+    function saveRecording() {
+        console.log('save recording ...')
+
+        mediaRecorder.save();
+    };
+
+    // Define the audioBufferToWav function first
+    function audioBufferToWav(buffer) {
+        const numOfChan = buffer.numberOfChannels,
+            length = buffer.length * numOfChan * 2 + 44,
+            bufferArray = new ArrayBuffer(length),
+            view = new DataView(bufferArray),
+            channels = [],
+            sampleRate = buffer.sampleRate;
+        let offset = 0,
+            pos = 0;
+
+        // Write WAV header
+        setUint32(0x46464952);                         // "RIFF"
+        setUint32(length - 8);                         // file length - 8
+        setUint32(0x45564157);                         // "WAVE"
+
+        setUint32(0x20746d66);                         // "fmt " chunk
+        setUint32(16);                                 // length = 16
+        setUint16(1);                                  // PCM (uncompressed)
+        setUint16(numOfChan);
+        setUint32(sampleRate);
+        setUint32(sampleRate * 2 * numOfChan);         // avg. bytes/sec
+        setUint16(numOfChan * 2);                      // block-align
+        setUint16(16);                                 // 16-bit (hardcoded in this example)
+
+        setUint32(0x61746164);                         // "data" - chunk
+        setUint32(length - pos - 4);                   // chunk length
+
+        // Write interleaved audio data
+        for (let i = 0; i < buffer.numberOfChannels; i++) {
+            channels.push(buffer.getChannelData(i));
+        }
+
+        while (pos < length) {
+            for (let i = 0; i < numOfChan; i++) {      // interleave channels
+                const sample = Math.max(-1, Math.min(1, channels[i][offset])); // clamp
+                view.setInt16(pos, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true); // scale to 16-bit signed int
+                pos += 2;
+            }
+            offset++; // next source sample
+        }
+
+        return new Blob([view], { type: 'audio/wav' });
+
+        function setUint16(data) {
+            view.setUint16(pos, data, true);
+            pos += 2;
+        }
+
+        function setUint32(data) {
+            view.setUint32(pos, data, true);
+            pos += 4;
+        }
+    }
+
+    var mediaRecorder;
+    let user_prompt;
+    let user_prompt_head = '```<prompt>1. 如果是首轮说话，请使用法语说明当前口语考试主题+开始本次口语考试的引导语。\
+                    格式说明：主题说明以标识符<et0>开始, 以标识符</et0>结束,主题说明的内容使用法语，\
+                    本次口语考试的引导语以标识符<ex0>开始，以标识符</ex0>结束。\
+                    2. 如果在交互式对话轮次，对$i$进行计数，i的初始值为1，你每轮的回答请参照以下步骤：\
+                    步骤 1（使用中文)(开始和结束使用 `<p$i$>` 和 `</p$i$>` 标识）：在考生回答后，\
+                    首先复述考生上一轮的发言(标识符<me$i$>和</me$i$>中的内容。如果发现语义上有错误,请猜测考生实际想表达的内容. \
+                    然后用中文点评这个回答的正确性和连贯性，如果发现发音问题，提供改进建议，如果有表达错误或者不地道的地方，\
+                    请纠正。步骤 2 (使用法语）（使用 `<ex$i$>`和`</ex$i$>` 标识开始和结束）：确认考生回答内容后，\
+                    以考官口吻说出下一句引导语以标识符<ex$i$>开始，以标识符</ex$i$>结束。3. 如果当前口语对话已经结束，\
+                    根据 DELF-B1 口语考试标准，对考生的表现进行全面评估，包括发音、流利度、语法和词汇资源，并提供详细反馈。\
+                    然后提供高分示例：给出一个理想考生的高分对话示例，并解释为何这个对话能够获得高分。</prompt>```';
+    let user_prompt_tail = "";
+    let iter_num = 1;
+
+    const regex_et = /<et(\d+)>(.*?)<\/et(\d+)>/g;
+    // const regex_et0 = /<et0>(.*?)<\/et0>/s;
+    // const regex_p = /<p(\d+)>(.*?)<\/p(\d+)>/g;
+    const regex_p = /<p\d+>(.*?)<\/p\d+>/s;
+    const regex_ex = /<ex(\d+)>(.*?)<\/ex(\d+)>/g;
+    // const regex_ex0 = /<ex0>(.*?)<\/ex0>/s;
+    let match;
+    // let oral_results = [];
+    let et_results = [];
+    let p_results = [];
+    let ex_results = [];
+
+    var responseArea = document.getElementById('responseArea');
+    var responseArea_comment = document.getElementById('responseArea-comment');
+    var recognizedText;
+
+    
+    async function generateResponse(){
+        user_prompt = user_prompt_head + '<context>' + user_prompt_tail + '</context>'
+
+        const response = await fetch('oralagent', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                temp_user_prompt: user_prompt,
+            }),
+        });
+
+        const data = await response.text();  // Assuming the response is plain text
+        console.log('>>> [round 0] oral agent::', data);  // Handle the response here (e.g., display it on the page)
+
+
+        // extract the examinator's text
+        while ((match = regex_et.exec(data)) !== null) {
+            // match[2] 是括号中匹配的内容，即标签内的文本
+            et_results.push(match[2].trim());
+        }
+
+        while ((match = regex_ex.exec(data)) !== null) {
+            // match[2] 是括号中匹配的内容，即标签内的文本
+            ex_results.push(match[2].trim());
+        }
+
+        responseArea.innerText += '[Intro] ' + et_results + '\n\n';
+        responseArea.innerText += 'L\'examinateur: ' + ex_results + '\n\n';
+
+        speakText(et_results + ex_results);
+        console.log('speak et');
+        // speakText(ex_results);
+        // console.log('speak ex');
+
+        user_prompt_tail += data;
+
+    }
+
+    function onMediaSuccess(stream) {
+        mediaRecorder = new MediaStreamRecorder(stream);
+        mediaRecorder.stream = stream;
+        mediaRecorder.mimeType = 'audio/wav';  
+        //mediaRecorder.mimeType = 'audio/webm';  
+        mediaRecorder.audioChannels = 1;
+        mediaRecorder.ondataavailable = async function(blob) {
+            // $('#record-audio').html("<audio controls=''><source src=" + URL.createObjectURL(blob) + "></source></audio>");
+            // const formData = new FormData();
+            // formData.append('audio', blob, 'recording.wav'); // 'audio' must match the key in your Flask request.files
+
+            const arrayBuffer = await blob.arrayBuffer();
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Decode the audio file to get audio buffer
+            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+            // Resample the audio to 16000 Hz
+            const offlineAudioContext = new OfflineAudioContext(1, audioBuffer.duration * 16000, 16000);
+            const soundSource = offlineAudioContext.createBufferSource();
+            soundSource.buffer = audioBuffer;
+            soundSource.connect(offlineAudioContext.destination);
+            soundSource.start(0);
+
+            const resampledBuffer = await offlineAudioContext.startRendering();
+
+            // Convert resampled buffer to WAV format or any other format you need
+            const resampledBlob = audioBufferToWav(resampledBuffer);
+            
+            // Now you can send the resampled audio (16000 Hz) to the server
+            const formData = new FormData();
+            formData.append('audio', resampledBlob, 'recording.wav');
+            $('#record-audio').html("<audio controls=''><source src=" + URL.createObjectURL(resampledBlob) + "></source></audio>");
+
+            // *** ASR ***
+            try {
+                // const response = await fetch('http://service2:5002/recognize', {
+                const response = await fetch('http://127.0.0.1:5002/recognize', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // const response = await fetch('/proxy/recognize', {  // Send to the proxy route in the main service
+                //     method: 'POST',
+                //     body: formData  // Form data with the audio blob
+                // });
+
+                if (response.ok) {
+                    // Parse the JSON response
+                    const data = await response.json();  // Use 'await' to resolve the Promise
+                    console.log('Server response:', data);
+                    // var responseArea = document.getElementById('responseArea');
+                    recognizedText += 'Vous: ' + data.result + '\n\n';
+
+                    // Update the response area content
+                    responseArea.innerText += recognizedText;  // Appends with a separator
+                    // responseArea.innerText = recognizedText;
+                    
+                    // Handle the response data as needed
+                    // return data.result;  // Assuming the server returns the result in 'result' field
+                } else {
+                    // Handle HTTP errors (e.g., 500 Internal Server Error)
+                    console.error('Server responded with status:', response.status);
+                    throw new Error('Server error');
+                }
+            } catch (error) {
+                // Handle network errors or other exceptions
+                console.error('Error sending audio to server:', error);
+            }
+
+            // *** oral agent ***
+            user_prompt_tail += `<me${iter_num - 1}>${recognizedText} </me${iter_num - 1}>`;
+            user_prompt = user_prompt_head + '<context>' + user_prompt_tail + '</context>'
+            console.log('user_prompt')
+
+            const response = await fetch('/oralagent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    temp_user_prompt: user_prompt,
+                }),
+            });
+
+            const data = await response.text();  // Assuming the response is plain text
+            console.log('>>> oral agent::', data);  // Handle the response here (e.g., display it on the page)
+
+            // p_results = [];
+            // while ((match = regex_p.exec(data)) !== null) {
+            //     // match[2] 是括号中匹配的内容，即标签内的文本
+            //     // console.log('pp: ', match)
+            //     p_results.push(match[1].trim());
+            // }
+
+            if (data.match(regex_p) !== null) {
+                p_results = data.match(regex_p)[1].trim();
+            } else {
+                p_results = [];
+            }
+            
+            console.log('p_results:: ', p_results);
+            console.log('responseArea_comment.style.display:', responseArea_comment.style.display);
+            
+            if (p_results.length > 0 && responseArea_comment.style.display == 'none') {
+                responseArea_comment.style.display = 'block';
+                responseArea_comment.innerText =   `Comment${iter_num}: ${p_results} \n\n`;
+            } else if (p_results.length > 0 && responseArea_comment.style.display == 'block') {
+                responseArea_comment.innerText += `Comment${iter_num}: ${p_results} \n\n`;
+            } else {
+                console.log('no caught comment');
+            }
+
+            ex_results = [];
+            while ((match = regex_ex.exec(data)) !== null) {
+                // match[2] 是括号中匹配的内容，即标签内的文本
+                ex_results.push(match[2].trim());
+            }
+
+            responseArea.innerText += 'L\'examinator: ' + ex_results + '\n\n';
+
+            speakText(ex_results);
+            console.log('speak ex');
+
+            user_prompt_tail += data;
+            iter_num += 1;
+            console.log('round: ', iter_num, 'user_prompt_tail: ', user_prompt_tail);
+            
+        };
+
+        var timeInterval = 360 * 1000;
+
+        mediaRecorder.start(timeInterval);
+
+        $('#stop-recording').disabled = false;
+    }
+
+    function onMediaError(e) {
+        console.error('media error', e);
+    }
+
+    function bytesToSize(bytes) {
+        var k = 1000;
+        var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        if (bytes === 0) return '0 Bytes';
+        var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)), 10);
+        return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+    }
+
+    function getTimeLength(milliseconds) {
+        var data = new Date(milliseconds);
+        return data.getUTCHours() + " hours, " + data.getUTCMinutes() + " minutes and " + data.getUTCSeconds() + " second(s)";
+    }
+
+    window.onbeforeunload = function() {
+        $('#start-recording').disabled = false;
+    };
+
+
+    $(document).on('click','input[name="audio_record-icon"]',function(){
+    var checked = $('#audio_record-icon').prop('checked'); 
+    if(checked == true)
+        {
+            startRecording();
+            console.log('start');
+        }
+    else
+        {
+            stopRecording();
+            console.log('stop');
+        }
+    });
+    
+        
+
+    //       try {
+    //         const response = await fetch("http://127.0.0.1:5002/recognize", {
+    //           method: "POST",
+    //           body: formData
+    //         });
+    //         // const res_en = await fetch("http://127.0.0.1:5003/translate", {
+    //         //     method: "POST",
+    //         //     body: JSON.stringify({
+    //         //         q: text,
+    //         //         source: "fr",
+    //         //         target: "en",
+    //         //         format: "text",
+    //         //         alternatives: 3,
+    //         //         api_key: ""
+    //         //     }),
+    //         //     headers: { "Content-Type": "application/json" }
+    //         // });
+
+    //         const res = await response.json(); // Assuming the server returns JSON
+    //         console.log("Server response:", res);
+
+    //       } catch (error) {
+    //         console.error("Error sending audio file:", error);
+    //       }
+
+    //       // Reset audio chunks for the next recording
+    //       audioChunks = [];
+    //     };
+
+    //     // Start recording
+    //     mediaRecorder.start();
+
+
+    /////////////////////////////////////////
+    // Speak the selected text functionality
+    /////////////////////////////////////////
+    const selectionOptions = document.getElementById('selectionOptions');
+    const readButton = document.getElementById('readSelection');
+
+    document.addEventListener('click', function(event) {
+        console.log(event.target)
+        console.log(selectionOptions.contains(event.target))
+        console.log(window.getSelection().toString().trim() !== "")
+        let selectedText = window.getSelection().toString().trim();
+        if (selectedText !== "") {
+            console.log('Here')
+            // Display the selection options box
+            selectionOptions.style.display = 'block';
+            selectionOptions.style.top = `${event.pageY}px`;
+            selectionOptions.style.left = `${event.pageX}px`;
+        } else {
+            selectionOptions.style.display = 'none';
+        }
+    });
+
+    readButton.addEventListener('click', function() {
+        let selectedText = window.getSelection().toString().trim();
+        if (selectedText) {
+            selectionOptions.style.display = 'block';
+            speakText(selectedText);
+        }
+    });
+
+
+    var frenchVoice; // Define frenchVoice at a higher scope
+
+    // Function to load voices and find the French voice
+    function loadVoices() {
+        var voices = window.speechSynthesis.getVoices();
+
+        frenchVoice = voices.find(voice => voice.lang.startsWith('fr-FR') && voice.name.includes('Daniel'));
+        console.log('French voice loaded:', frenchVoice);
+    }
+
+    // Set up the voices when they are ready
+    if (speechSynthesis.getVoices().length === 0) {
+        speechSynthesis.onvoiceschanged = loadVoices;
+    } else {
+        loadVoices();
+    }
+
+    function speakText(text) {
+        const synth = window.speechSynthesis;
+        if (synth.speaking) {
+            synth.cancel();  // Stop if already speaking
+        }
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.voice = frenchVoice; // Set the French voice
+        utterance.rate = 1; // Normal speed
+        utterance.pitch = 1; // Normal pitch
+        synth.speak(utterance);
+    }
+   
+</script>
+
+</body>
+</html>

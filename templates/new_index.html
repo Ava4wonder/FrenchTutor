@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Response Generator</title>
+    <style>
+        :root {
+            --fuschia: #daeded;
+            --button-bg: var(--fuschia);
+            --button-text-color: #adeee4;
+            --baby-blue: #f8faff;
+        }
+
+        html, body {
+            height: 100%;
+        }
+        /* body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        } */
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: rgb(165, 218, 218);
+        }
+        .container {
+            background-color: rgb(16, 17, 17);
+            padding: 20px;
+            border: 1px solid #040708;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 480px;
+            text-align: center;
+        }
+        #output-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 400px;
+            height: 200px;
+            color: white;
+            font-family: 'Raleway';
+            font-size: 2.5rem;
+        }
+
+        /* 弹出选项框样式 */
+        #selectionOptions {
+            display: none;
+            position: absolute;
+            /* padding: 4px; */
+            background: #63e2db;
+            /* border: 1px solid #191818; */
+            /* margin-top: -2px; /* 弹出框距离选中文字的垂直距离 */
+            /* margin-left: -2px; /* 弹出框距离选中文字的水平距离，根据需要调整 */
+            z-index: 100;
+        }
+
+        /* 基本按钮样式 */
+        .audioButton {
+            padding: 15px 20px; /* 按钮内边距 */
+            font-size: 16px; /* 字体大小 */
+            font-weight: bold; /* 字体加粗 */
+            color: #ffffff; /* 文字颜色 */
+            background-color: rgb(238, 198, 220); /* 按钮背景颜色 */
+            border: none; /* 无边框 */
+            border-radius: 5px; /* 边框圆角 */
+            cursor: pointer; /* 鼠标悬停时显示手型图标 */
+            transition: background-color 0.3s; /* 背景颜色变化的过渡效果 */
+        }
+        
+        /* 鼠标悬停时的按钮样式
+        #playButton:hover {
+        background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+        /* } */
+
+        /* 按钮点击时的样式 */
+        /* #playButton:active {
+        background-color: #004085; /* 点击时的背景颜色 */
+        /* } */ 
+
+        .response-area {
+            background-color: #d7f6f7;
+            padding: 40px;
+            font-size: 14px;  /* Smaller font size */
+            border-radius: 10px;
+            font-weight: normal;
+            color: black;
+            min-height: 200px;
+            text-align: left;
+        }
+
+        
+        .generate-button{
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold; /* 字体加粗 */
+            padding: 15px 40px;
+            margin-top: 100px;
+            margin-bottom: 60px;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: var(--button-bg);
+            color: $button-text-color;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+            box-shadow: 0 2px 25px rgba(255, 60, 160, 0.8);
+            
+            &:focus {
+                outline: 0;
+            }
+            
+            &:before, &:after{
+                position: absolute;
+                content: '';
+                display: block;
+                width: 180%;
+                height: 120%;
+                left: -40%;
+                z-index: -1000;
+                transition: all ease-in-out 0.5s;
+                background-repeat: no-repeat;
+            }
+            
+            &:before{
+                display: none;
+                top: -75%;
+                background-image:  
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle,  transparent 40%, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%), 
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%);
+            background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
+            //background-position: 0% 80%, -5% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 85% 30%;
+            }
+            
+            &:after{
+                display: none;
+                bottom: -75%;
+                background-image:  
+                radial-gradient(circle, $button-bg 40%, transparent 40%), 
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%);
+            background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+            //background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+            }
+            
+            &:active{
+                transform: scale(0.9);
+                background-color: darken($button-bg, 5%);
+                box-shadow: 0 2px 25px rgba(255, 0, 130, 0.2);
+            }
+            
+            &.animate{
+                &:before{
+                display: block;
+                animation: topBubbles ease-in-out 0.75s forwards;
+                }
+                &:after{
+                display: block;
+                animation: bottomBubbles ease-in-out 0.75s forwards;
+                }
+            }
+        }
+
+
+        @keyframes topBubbles {
+        0%{
+            background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+        }
+            50% {
+            background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;}
+        100% {
+            background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+        background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+        }
+        }
+
+        @keyframes bottomBubbles {
+        0%{
+            background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+        }
+        50% {
+            background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;}
+        100% {
+            background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+        background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+        }
+        }
+     
+        
+        
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <button class="generate-button" onclick="generateResponse()">Generate</button>
+    <button class="audioButton", id="playButton">Play</button>
+    <div id="responseArea" class="response-area">
+        <!-- Response will be displayed here -->
+        <!-- <button class="audioButton", id="playButton" style="display: none;">Play Audio</button> -->
+    
+    </div>
+</div>
+
+<!-- 弹出选项框 -->
+<div id="selectionOptions">
+    <button id="readSelection">read</button>
+</div>
+
+<script>
+    var audioPath;
+    let audio;
+    let isPlaying = false;
+    var level = localStorage.getItem('FrenchTutor_level');
+
+    function generateResponse() {
+    const url = `/generatenew?level=${encodeURIComponent(level)}`;
+
+    fetch(url)
+    // fetch('/generatenew')
+    .then(response => response.json())
+    .then(data => {
+        // const filePath = data.text; // 假设返回的是文件路径
+        audioPath = data.audioPath;
+        displayTextFromFile(data.text); // 显示文本文件内容
+        
+        document.getElementById('playButton').onclick = function() {
+        // 这里可以调用 readAudioFile 函数，也可以执行其他逻辑
+        readAudioFile(data.audioPath);
+        };
+        // playAudioOnClick();
+        // readAudioFile(audioPath)
+        // <button class="audioButton" onclick="readAudioFile(audioPath)">Play</button>
+            
+    })
+    .catch(error => console.error('Error:', error));
+    }
+
+    function displayTextFromFile(filePath) {
+        // 创建一个新的fetch请求来获取文本文件内容
+        fetch(`/read_file/${encodeURIComponent(filePath)}`)
+        .then(response => {
+            if (response.ok) {
+                return response.text(); // 确保返回的是文本
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(text => {
+            document.getElementById('responseArea').innerText = text; // 显示文本内容
+            // const nowplayButton = document.getElementById('playButton');
+            
+            // nowplayButton.style.display = 'display'; // Show the play button
+            // nowplayButton.onclick = function() {
+            //     readAudioFile(audioPath); // Call the function to play the audio
+            // };
+
+        })
+        .catch(error => console.error('Error reading the text file:', error));
+    }
+
+    // Function to replace **text** with <b>text</b> and _text_ with <i>text</i>
+    function formatText(inputText) {
+        return inputText
+            .replace(/__([^]+)__/g, '<i>$1</i>')       // Replace __text__ with <i>text</i>
+            .replace(/\*\*([^]+?)\*\*/g, '<b>$1</b>'); // Replace **text** with <b>text</b>
+    }
+
+    function playAudioOnClick() {
+        if (audioPath) {
+            readAudioFile(audioPath); // 调用函数播放音频
+        }
+    }
+
+    function readAudioFile(filePath) {
+        if (!audio) {
+            // 使用fetch API从服务器请求音频文件
+            fetch(`/read_audio_file/${encodeURIComponent(filePath)}`)
+            .then(response => {
+                if (!response.ok) {
+                    // 如果响应状态码不是200-299，抛出错误
+                    throw new Error('Network response was not ok.');
+                }
+                return response.blob(); // 获取音频文件的Blob
+            })
+            .then(blob => {
+                const audioURL = URL.createObjectURL(blob);
+                audio = new Audio(audioURL);
+
+                audio.play().then(() => {
+                    isPlaying = true; // Set the state to playing
+                    document.getElementById('playButton').innerText = 'Pause'; // Change button text to 'Pause'
+                }).catch(e => {
+                    console.error('There was a problem playing the audio file:', e);
+                });
+
+                audio.onended = () => {
+                    isPlaying = false; // Reset the state when the audio ends
+                    URL.revokeObjectURL(audioURL);
+                    document.getElementById('playButton').innerText = 'Play'; // Reset button text to 'Play'
+                    audio = null; // Reset the audio object
+                };
+            })
+            .catch(error => {
+                    console.error('Error reading the audio file:', error);
+                });
+        } else if (isPlaying) {
+            // If the audio is playing, pause it
+            audio.pause();
+            isPlaying = false; // Set the state to paused
+            document.getElementById('playButton').innerText = 'Play'; // Change button text to 'Play'
+        } else {
+            // If the audio is paused, resume playing
+            audio.play();
+            isPlaying = true; // Set the state to playing
+            document.getElementById('playButton').innerText = 'Pause'; // Change button text to 'Pause'
+        }
+    }
+
+    /////////////////////////////////////////
+    // Speak the selected text functionality
+    /////////////////////////////////////////
+    const selectionOptions = document.getElementById('selectionOptions');
+    const readButton = document.getElementById('readSelection');
+
+    document.addEventListener('click', function(event) {
+        console.log(event.target)
+        console.log(selectionOptions.contains(event.target))
+        console.log(window.getSelection().toString().trim() !== "")
+        let selectedText = window.getSelection().toString().trim();
+        if (selectedText !== "") {
+            console.log('Here')
+            // Display the selection options box
+            selectionOptions.style.display = 'block';
+            selectionOptions.style.top = `${event.pageY}px`;
+            selectionOptions.style.left = `${event.pageX}px`;
+        } else {
+            selectionOptions.style.display = 'none';
+        }
+    });
+
+    readButton.addEventListener('click', function() {
+        let selectedText = window.getSelection().toString().trim();
+        if (selectedText) {
+            selectionOptions.style.display = 'block';
+            speakText(selectedText);
+        }
+    });
+
+    // document.addEventListener('click', function(event) {
+    //     if (!selectionOptions.contains(event.target)) {
+    //         console.log('there')
+    //         selectionOptions.style.display = 'none';
+    //     }
+    //     else{
+    //         selectionOptions.style.display = 'block';
+    //     }
+
+    // });
+    var frenchVoice; // Define frenchVoice at a higher scope
+
+    // Function to load voices and find the French voice
+    function loadVoices() {
+        var voices = window.speechSynthesis.getVoices();
+        // ** List all available voices ** //
+        // voices.forEach(voice => {
+        //     console.log(`Name: ${voice.name}, Lang: ${voice.lang}, Local: ${voice.localService}, Default: ${voice.default}`);
+        //     });
+        frenchVoice = voices.find(voice => voice.lang.startsWith('fr-FR') && voice.name.includes('Daniel'));
+        console.log('French voice loaded:', frenchVoice);
+    }
+
+    // Set up the voices when they are ready
+    if (speechSynthesis.getVoices().length === 0) {
+        speechSynthesis.onvoiceschanged = loadVoices;
+    } else {
+        loadVoices();
+    }
+
+    function speakText(text) {
+        const synth = window.speechSynthesis;
+        if (synth.speaking) {
+            synth.cancel();  // Stop if already speaking
+        }
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.voice = frenchVoice; // Set the French voice
+        utterance.rate = 1; // Normal speed
+        utterance.pitch = 1; // Normal pitch
+        synth.speak(utterance);
+    }
+   
+</script>
+
+</body>
+</html>

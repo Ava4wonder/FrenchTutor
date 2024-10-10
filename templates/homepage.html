@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Response Generator</title>
+    <style>
+        :root {
+            --fuschia: #daeded;
+            --button-bg: var(--fuschia);
+            --button-text-color: #adeee4;
+            --baby-blue: #f8faff;
+        }
+
+        html, body {
+            height: 100%;
+        }
+        /* body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        } */
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: rgb(165, 218, 218);
+        }
+        .container {
+            background-color: rgb(16, 17, 17);
+            padding: 20px;
+            border: 1px solid #040708;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 480px;
+            text-align: center;
+        }
+        #output-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 400px;
+            height: 200px;
+            color: white;
+            font-family: 'Raleway';
+            font-size: 2.5rem;
+        }
+
+        /* 弹出选项框样式 */
+        #selectionOptions {
+            display: none;
+            position: absolute;
+            /* padding: 4px; */
+            background: #63e2db;
+            /* border: 1px solid #191818; */
+            /* margin-top: -2px; /* 弹出框距离选中文字的垂直距离 */
+            /* margin-left: -2px; /* 弹出框距离选中文字的水平距离，根据需要调整 */
+            z-index: 100;
+        }
+
+        /* 基本按钮样式 */
+        .audioButton {
+            padding: 15px 20px; /* 按钮内边距 */
+            font-size: 16px; /* 字体大小 */
+            font-weight: bold; /* 字体加粗 */
+            color: #ffffff; /* 文字颜色 */
+            background-color: rgb(238, 198, 220); /* 按钮背景颜色 */
+            border: none; /* 无边框 */
+            border-radius: 5px; /* 边框圆角 */
+            cursor: pointer; /* 鼠标悬停时显示手型图标 */
+            transition: background-color 0.3s; /* 背景颜色变化的过渡效果 */
+        }
+        
+        /* 鼠标悬停时的按钮样式
+        #playButton:hover {
+        background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+        /* } */
+
+        /* 按钮点击时的样式 */
+        /* #playButton:active {
+        background-color: #004085; /* 点击时的背景颜色 */
+        /* } */ 
+
+        .response-area {
+            background-color: #88ebec;
+            background-image: linear-gradient(45deg, #de5e5e, #eccf7d);
+            padding: 15px 20px;;
+            font-size: 20px;  /* Smaller font size */
+            border-radius: 10px;
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+            /* min-height: 200px; */
+            text-indent: 0px;
+            /* text-indent: 0; 确保首行文本没有缩进 */
+            margin-top: 40px; /* 确保没有顶部外边距 */
+            margin-bottom: 20px; /* 确保没有顶部外边距 */
+        }
+
+        
+        .generate-button{
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold; /* 字体加粗 */
+            padding: 15px 40px;
+            margin-top: 20px;
+            margin-bottom: 60px;
+            margin-left: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: var(--button-bg);
+            color: $button-text-color;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+            box-shadow: 0 2px 25px rgba(255, 60, 160, 0.8);
+            
+            &:focus {
+                outline: 0;
+            }
+            
+            &:before, &:after{
+                position: absolute;
+                content: '';
+                display: block;
+                width: 180%;
+                height: 120%;
+                left: -40%;
+                z-index: -1000;
+                transition: all ease-in-out 0.5s;
+                background-repeat: no-repeat;
+            }
+            
+            &:before{
+                display: none;
+                top: -75%;
+                background-image:  
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle,  transparent 40%, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%), 
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 20%);
+            background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
+            //background-position: 0% 80%, -5% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 85% 30%;
+            }
+            
+            &:after{
+                display: none;
+                bottom: -75%;
+                background-image:  
+                radial-gradient(circle, $button-bg 40%, transparent 40%), 
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%),
+                radial-gradient(circle, $button-bg 40%, transparent 40%);
+            background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+            //background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+            }
+            
+            &:active{
+                transform: scale(0.9);
+                background-color: darken($button-bg, 5%);
+                box-shadow: 0 2px 25px rgba(255, 0, 130, 0.2);
+            }
+            
+            &.animate{
+                &:before{
+                display: block;
+                animation: topBubbles ease-in-out 0.75s forwards;
+                }
+                &:after{
+                display: block;
+                animation: bottomBubbles ease-in-out 0.75s forwards;
+                }
+            }
+        }
+
+
+        @keyframes topBubbles {
+        0%{
+            background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+        }
+            50% {
+            background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;}
+        100% {
+            background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+        background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+        }
+        }
+
+        @keyframes bottomBubbles {
+        0%{
+            background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+        }
+        50% {
+            background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;}
+        100% {
+            background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+        background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+        }
+        }
+     
+        
+        
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="responseArea" class="response-area"> ☺︎ Please choose a DELF level to study ☺︎ </div>
+    <button class="generate-button" onclick="setFrLevel('A1')">A1</button>
+    <button class="generate-button" onclick="setFrLevel('A2')">A2</button>
+    <button class="generate-button" onclick="setFrLevel('B1')">B1</button>
+    <button class="generate-button" onclick="setFrLevel('B2')">B2</button>
+    <div id="responseResult" class="response-area" style="display: none"></div>
+    <!-- <button class="audioButton", id="playButton">Play</button> -->
+    <!-- <div id="responseArea" class="response-area"> -->
+        <!-- Response will be displayed here -->
+        <!-- <button class="audioButton", id="playButton" style="display: none;">Play Audio</button> -->
+    
+    </div>
+</div>
+
+<script>
+
+    function setFrLevel(level) {
+        localStorage.setItem('FrenchTutor_level', level || ''); // 设置或更新 localstorage 中的 FrenchTutor_level 变量
+        console.log('FrenchTutor Level set to:', level);
+
+        const url = `/checklevelfiles?level=${encodeURIComponent(level)}`;
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data == 1) {
+                document.getElementById('responseResult').innerText = level + " files have been generated!";
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+
+</script>
+
+</body>
+</html>
+
+
+<!-- <nav>
+  <ul>
+    <li><a href="oral">Oral</a></li>
+    <li><a href="listening">Listen</a></li>
+    <li><a href="reading">Read</a></li>
+    <li><a href="notebook">Notebook</a></li>
+    <li><a href="vocabreplay">Vocab Test</a></li>
+</ul>
+</nav> -->
+
+<!-- 页面的其余部分 -->
+

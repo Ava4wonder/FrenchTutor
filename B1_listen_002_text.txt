@@ -1,9 +1,0 @@
-
-L'HOMME: Bonjour, je m'appelle Jean Dupont, et je suis ingénieur en informatic.
-LA FEMME: Bonjour, Jean. Moi, je m'appelle Marie Delaunay et je travaille au musée d'Orsay.
-L'HOMME: C'est intéressant. Vous travaillez donc avec de nombreux artistes et de belles œuvres?
-LA FEMME: Effectivement, j'adore mon travail. Nous avons des expositions régulières et il y a toujours quelque chose de nouveau à découvrir.
-L'HOMME: Et vous aimez particulièrement une œuvre ou un artiste en particulier?
-LA FEMME: Personnellement, je suis très touchée par les toiles de Van Gogh. Il y a tellement de passion dans son travail.
-L'HOMME: Ah oui, Van Gogh est vraiment un grand maître. Je n'ai pas eu l'occasion de visiter le musée d'Orsay, mais j'aimerais y aller un jour.
-LA FEMME: Vous devriez vraiment le faire. C'est un endroit magnifique et vous serez sûrement inspiré.

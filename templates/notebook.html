@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notebook</title>
+    <style>
+        :root {
+            --fuschia: #daeded;
+            --button-bg: var(--fuschia);
+            --button-text-color: #adeee4;
+            --baby-blue: #f8faff;
+        }
+
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: rgb(165, 218, 218);
+        }
+        .container {
+            background-color: rgb(16, 17, 17);
+            padding: 20px;
+            border: 1px solid #040708;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 480px;
+            text-align: center;
+            color: white;
+        }
+
+        /* 弹出选项框样式 */
+        #selectionOptions {
+            display: none;
+            position: absolute;
+            /* padding: 4px; */
+            background: #63e2db;
+            /* border: 1px solid #191818; */
+            /* margin-top: -2px; /* 弹出框距离选中文字的垂直距离 */
+            /* margin-left: -2px; /* 弹出框距离选中文字的水平距离，根据需要调整 */
+            z-index: 100;
+        }
+
+        .play-button {
+        padding: 2px 2px; /* 按钮内部的填充 */
+        margin-left: 5px; /* 按钮与文本的间距 */
+        border: none; /* 去掉边框 */
+        border-radius: 5px; /* 按钮边缘的圆角 */
+        background-color: #7afbe1; /* 按钮的背景颜色 */
+        color: white; /* 按钮文本的颜色 */
+        cursor: pointer; /* 鼠标悬停时的光标样式 */
+        font-size: 12px; /* 文本的字体大小 */
+        outline: none; /* 去掉点击时的轮廓线 */
+        transition: background-color 0.3s; /* 背景颜色变化的过渡效果 */
+        }
+
+        .play-button:hover {
+        background-color: #59bbbb; /* 鼠标悬停时的背景颜色 */
+        }
+
+        .play-button:active {
+        background-color: #5aaeb7; /* 按钮被按下时的背景颜色 */
+        }
+
+        .delete-button {
+            background-color: #b0d2bf; /* 柔和的红色背景 */
+            margin-left: 5px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 2px 2px;
+            cursor: pointer;
+            outline: none;
+            font-size: 12px; /* 文本的字体大小 */
+            transition: background-color 0.3s;
+        }
+
+        .delete-button:hover {
+            background-color: #7ec9ab; /* 鼠标悬停时更深的红色 */
+        }
+
+
+        .notebook-item {
+            background-color: #d7f6f7;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .item-title {
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .item-details {
+            margin-top: 5px;
+            color: rgb(29, 35, 41);
+        }
+        .item-frequency {
+            margin-top: 5px;
+            color: rgb(109, 113, 118);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>My Notebook</h2>
+        <div id="notebookItems">
+            <!-- Notebook items will be displayed here -->
+        </div>
+    </div>
+
+    <!-- 弹出选项框 -->
+    <div id="selectionOptions">
+        <button id="readSelection">read</button>
+    </div>
+
+    <script>
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // selectedtext function 1: Speak the french word
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        var frenchVoice; // Define frenchVoice at a higher scope
+
+        // Function to load voices and find the French voice
+        function loadVoices() {
+            var voices = window.speechSynthesis.getVoices();
+            // ** List all available voices ** //
+            // voices.forEach(voice => {
+            //     console.log(`Name: ${voice.name}, Lang: ${voice.lang}, Local: ${voice.localService}, Default: ${voice.default}`);
+            //     });
+            frenchVoice = voices.find(voice => voice.lang.startsWith('fr-FR') && voice.name.includes('Daniel'));
+            console.log('French voice loaded:', frenchVoice);
+        }
+
+        // Set up the voices when they are ready
+        if (speechSynthesis.getVoices().length === 0) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        } else {
+            loadVoices();
+        }
+
+        function speakText(text) {
+            const synth = window.speechSynthesis;
+            if (synth.speaking) {
+                synth.cancel();  // Stop if already speaking
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.voice = frenchVoice; // Set the French voice
+            utterance.rate = 1; // Normal speed
+            utterance.pitch = 1; // Normal pitch
+            synth.speak(utterance);
+        }
+
+
+        // Load notebook from local storage
+        function loadNotebook() {
+            let notebook = JSON.parse(localStorage.getItem('notebook')) || [];
+            console.log('load...: ', notebook)
+            displayNotebook(notebook);
+        }
+
+        // Display notebook items
+        function displayNotebook(notebook) {
+            const notebookItemsContainer = document.getElementById('notebookItems');
+            notebookItemsContainer.innerHTML = ''; // Clear existing content
+            
+            // Remove duplicates and count frequency
+            const uniqueItems = {};
+            notebook.forEach(item => {
+                if (uniqueItems[item.text]) {
+                    uniqueItems[item.text].frequency++;
+                } else {
+                    uniqueItems[item.text] = { 
+                        translation: item.translation, 
+                        frequency: 1 
+                    };
+                }
+            });
+
+            console.log('unique items:', uniqueItems)
+
+            // Display each unique item
+            Object.keys(uniqueItems).forEach(text => {
+                const item = uniqueItems[text];
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'notebook-item';
+
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'item-title';
+                titleDiv.innerText = `${text}`;
+                // 创建播放按钮
+                const playButton = document.createElement('button');
+                playButton.innerText = '🌀';
+                playButton.className = 'play-button'; // 可以添加CSS样式
+                playButton.onclick = function() { speakText(text); }; // 绑定点击事件
+                
+                // 创建删除按钮
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = '❌';
+                deleteButton.className = 'delete-button'; // 可以添加CSS样式
+                deleteButton.onclick = function() { 
+                    // 删除 itemDiv
+                    itemDiv.remove(); 
+                }; // 绑定点击事件
+
+                // 将播放按钮添加到 titleDiv
+                titleDiv.appendChild(playButton);
+                // 将删除按钮添加到 titleDiv
+                titleDiv.appendChild(deleteButton);
+                // titleDiv.innerText = `${text}<span class="voice-icon" style="cursor:pointer;">  </span>`;
+
+                // const voiceIcon = titleDiv.querySelector('.voice-icon');
+                // voiceIcon.addEventListener('click', function(){speakText(text)});
+
+                const detailsDiv = document.createElement('div');
+                detailsDiv.className = 'item-details';
+                detailsDiv.innerText = `[${item.translation}]`;
+                
+
+                const freqDiv = document.createElement('div');
+                freqDiv.className = 'item-frequency';
+                freqDiv.innerText = `${item.frequency}`;
+
+                itemDiv.appendChild(titleDiv);
+                itemDiv.appendChild(detailsDiv);
+                itemDiv.appendChild(freqDiv);
+
+                notebookItemsContainer.appendChild(itemDiv);
+            });
+        }
+
+
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // selectedtext function 1: Speak the selected text functionality
+        // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        // const selectionOptions = document.getElementById('selectionOptions');
+        // const readButton = document.getElementById('readSelection');
+
+        // document.addEventListener('click', function(event) {
+        //     console.log(event.target)
+        //     console.log(selectionOptions.contains(event.target))
+        //     console.log(window.getSelection().toString().trim() !== "")
+        //     let selectedText = window.getSelection().toString().trim();
+        //     if (selectedText !== "") {
+        //         console.log('Here')
+        //         // Display the selection options box
+        //         selectionOptions.style.display = 'block';
+        //         selectionOptions.style.top = `${event.pageY}px`;
+        //         selectionOptions.style.left = `${event.pageX}px`;
+        //     } else {
+        //         selectionOptions.style.display = 'none';
+        //     }
+        // });
+
+        // readButton.addEventListener('click', function() {
+        //     let selectedText = window.getSelection().toString().trim();
+        //     if (selectedText) {
+        //         selectionOptions.style.display = 'block';
+        //         speakText(selectedText);
+        //     }
+        // });
+
+        // var frenchVoice; // Define frenchVoice at a higher scope
+
+        // // Function to load voices and find the French voice
+        // function loadVoices() {
+        //     var voices = window.speechSynthesis.getVoices();
+        //     // ** List all available voices ** //
+        //     // voices.forEach(voice => {
+        //     //     console.log(`Name: ${voice.name}, Lang: ${voice.lang}, Local: ${voice.localService}, Default: ${voice.default}`);
+        //     //     });
+        //     frenchVoice = voices.find(voice => voice.lang.startsWith('fr-FR') && voice.name.includes('Daniel'));
+        //     console.log('French voice loaded:', frenchVoice);
+        // }
+
+        // // Set up the voices when they are ready
+        // if (speechSynthesis.getVoices().length === 0) {
+        //     speechSynthesis.onvoiceschanged = loadVoices;
+        // } else {
+        //     loadVoices();
+        // }
+
+        // function speakText(text) {
+        //     const synth = window.speechSynthesis;
+        //     if (synth.speaking) {
+        //         synth.cancel();  // Stop if already speaking
+        //     }
+        //     const utterance = new SpeechSynthesisUtterance(text);
+        //     utterance.voice = frenchVoice; // Set the French voice
+        //     utterance.rate = 1; // Normal speed
+        //     utterance.pitch = 1; // Normal pitch
+        //     synth.speak(utterance);
+        // }
+
+        // ------------------------------------------------
+        //   [EOF] Speak the selected text functionality
+        // ------------------------------------------------
+
+        // // Add new entry to the notebook
+        // function addToNotebook(text, translation) {
+        //     let notebook = JSON.parse(localStorage.getItem('notebook')) || [];
+        //     notebook.push({ text: text, translation: translation });
+        //     localStorage.setItem('notebook', JSON.stringify(notebook));
+        //     loadNotebook();
+        // }
+
+        // Example: Adding a new item to the notebook
+        // addToNotebook('Bonjour', '你好');
+        console.log('start displaying')
+        loadNotebook(); // Load notebook items on page load
+    </script>
+
+</body>
+</html>
